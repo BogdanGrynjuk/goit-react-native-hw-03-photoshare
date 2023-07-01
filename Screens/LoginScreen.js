@@ -1,11 +1,16 @@
 import { useState } from "react";
+
 import {
   StyleSheet,
   View,
   Text,
   ImageBackground, 
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   TextInput,
   TouchableOpacity,  
+  TouchableWithoutFeedback
 } from "react-native";
 
 export default function LoginScreen() {
@@ -15,81 +20,91 @@ export default function LoginScreen() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   
   return (
-    <View style={styles.container}>
-      {/* background */}
-      <ImageBackground
-        source={require("../assets/images/image-bg.jpg")}
-        style={styles.imageBackground}
-      >
-        {/*  */}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
-        <View style={styles.wrapper}>          
-          <View>
-            <Text style={styles.formTitle}>Увійти</Text>
-          </View>
-          {/* form */}
-          <View style={styles.form}>           
-            {/* input email */}
-            <View>
-              <TextInput
-                style={{
-                  ...styles.input,
-                  borderColor: isFocusedEmail ? "#FF6C00" : "#E8E8E8",
-                  backgroundColor: isFocusedEmail ? '#FFFFFF' : "#F6F6F6",
-                  color: "#212121",
-                }}
-                placeholder="Адреса електронної пошти"
-                onFocus={() => setIsFocusedEmail(true)}
-                onBlur={() => setIsFocusedEmail(false)}
-              />
-            </View>
-            {/* input password */}
-            <View style={{ position: "relative" }}>
-              <TextInput
-                style={{
-                  ...styles.input,
-                  borderColor: isFocusedPassword ? "#FF6C00" : "#E8E8E8",
-                  backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
-                  color: "#212121",
-                }}
-                placeholder='Пароль'
-                secureTextEntry={!isVisiblePassword}
-                onFocus={() => setIsFocusedPassword(true)}
-                onBlur={() => setIsFocusedPassword(false)}
-              />
-              <TouchableOpacity
-                style={styles.btnToggle}
-                activeOpacity={0.8}
-                onPressIn={() => setIsVisiblePassword(true)}
-                onPressOut={() => setIsVisiblePassword(false)}
-              >
-                <Text style={styles.btnToggleText}>Показати</Text>
-              </TouchableOpacity>
-            </View>
-            {/* btn sign in */}
-            <TouchableOpacity
-              style={styles.btn}
-              activeOpacity={0.8}             
-            >
-              <Text style={styles.btnTitle}>Увійти</Text>
-            </TouchableOpacity>
-            {/* link */}
-            <TouchableOpacity
-              style={styles.link}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.linkText}>
-                Немає акаунту? Зареєструватися
-              </Text>
-            </TouchableOpacity>
-          </View>
-          
-        </View>
+      <View style={styles.container}>
+        {/* background */}
+        <ImageBackground
+          source={require("../assets/images/image-bg.jpg")}
+          style={styles.imageBackground}
+        >
         
-      </ImageBackground>
+          <View style={styles.wrapper}>
+                    
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
 
-    </View>
-  
+              <View>
+                <Text style={styles.formTitle}>Увійти</Text>
+              </View>
+              {/* form */}
+              <View style={styles.form}>
+                {/* input email */}
+                <View>
+                  <TextInput
+                    style={{
+                      ...styles.input,
+                      borderColor: isFocusedEmail ? "#FF6C00" : "#E8E8E8",
+                      backgroundColor: isFocusedEmail ? '#FFFFFF' : "#F6F6F6",
+                      color: "#212121",
+                    }}
+                    placeholder="Адреса електронної пошти"
+                    onFocus={() => setIsFocusedEmail(true)}
+                    onBlur={() => setIsFocusedEmail(false)}
+                  />
+                </View>
+                {/* input password */}
+                <View style={{ position: "relative" }}>
+                  <TextInput
+                    style={{
+                      ...styles.input,
+                      borderColor: isFocusedPassword ? "#FF6C00" : "#E8E8E8",
+                      backgroundColor: isFocusedPassword ? "#FFFFFF" : "#F6F6F6",
+                      color: "#212121",
+                    }}
+                    placeholder='Пароль'
+                    secureTextEntry={!isVisiblePassword}
+                    onFocus={() => setIsFocusedPassword(true)}
+                    onBlur={() => setIsFocusedPassword(false)}
+                  />
+                  <TouchableOpacity
+                    style={styles.btnToggle}
+                    activeOpacity={0.8}
+                    onPressIn={() => setIsVisiblePassword(true)}
+                    onPressOut={() => setIsVisiblePassword(false)}
+                  >
+                    <Text style={styles.btnToggleText}>Показати</Text>
+                  </TouchableOpacity>
+                </View>
+                {/* btn sign in */}
+                <TouchableOpacity
+                  style={styles.btn}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.btnTitle}>Увійти</Text>
+                </TouchableOpacity>
+                {/* link */}
+                <TouchableOpacity
+                  style={styles.link}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.linkText}>
+                    Немає акаунту? Зареєструватися
+                  </Text>
+                </TouchableOpacity>
+              
+              </View>
+
+            </KeyboardAvoidingView>
+          
+          </View>
+        
+        </ImageBackground>
+
+      </View>
+
+    </TouchableWithoutFeedback>  
   );
 };
 

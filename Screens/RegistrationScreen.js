@@ -17,10 +17,22 @@ import {
 
 export default function RegistrationScreen() {
 
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [isFocusedLogin, setIsFocusedLogin] = useState(false);
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+  const onSubmit = () => {
+    console.log(`login: ${login}, email: ${email}, password: ${password}`);
+    setLogin("")
+    setEmail("");
+    setPassword("");
+    Keyboard.dismiss();
+  };
   
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -66,6 +78,8 @@ export default function RegistrationScreen() {
                     placeholder='Логін'
                     onFocus={() => { setIsFocusedLogin(true) }}
                     onBlur={() => setIsFocusedLogin(false)}
+                    value={login}
+                    onChangeText={setLogin}
                   />
                 </View>
                 {/* input email */}
@@ -80,6 +94,8 @@ export default function RegistrationScreen() {
                     placeholder="Адреса електронної пошти"
                     onFocus={() => setIsFocusedEmail(true)}
                     onBlur={() => setIsFocusedEmail(false)}
+                    value={email}
+                    onChangeText={setEmail}
                   />
                 </View>
                 {/* input password */}
@@ -95,6 +111,8 @@ export default function RegistrationScreen() {
                     secureTextEntry={!isVisiblePassword}
                     onFocus={() => setIsFocusedPassword(true)}
                     onBlur={() => setIsFocusedPassword(false)}
+                    value={password}
+                    onChangeText={setPassword}
                   />
                   <TouchableOpacity
                     style={styles.btnToggle}
@@ -109,6 +127,7 @@ export default function RegistrationScreen() {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.8}
+                  onPress={onSubmit}
                 >
                   <Text style={styles.btnTitle}>Зареєструватись</Text>
                 </TouchableOpacity>

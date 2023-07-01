@@ -15,9 +15,20 @@ import {
 
 export default function LoginScreen() {
   
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPassword, setIsFocusedPassword] = useState(false);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+
+  const onSubmit = () => {
+    console.log(`email: ${email}, password: ${password}`);
+    setEmail('');
+    setPassword('');
+    Keyboard.dismiss();
+  }
   
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -52,6 +63,8 @@ export default function LoginScreen() {
                     placeholder="Адреса електронної пошти"
                     onFocus={() => setIsFocusedEmail(true)}
                     onBlur={() => setIsFocusedEmail(false)}
+                    value={email}
+                    onChangeText={setEmail}
                   />
                 </View>
                 {/* input password */}
@@ -67,6 +80,8 @@ export default function LoginScreen() {
                     secureTextEntry={!isVisiblePassword}
                     onFocus={() => setIsFocusedPassword(true)}
                     onBlur={() => setIsFocusedPassword(false)}
+                    value={password}
+                    onChangeText={setPassword}
                   />
                   <TouchableOpacity
                     style={styles.btnToggle}
@@ -81,6 +96,7 @@ export default function LoginScreen() {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.8}
+                  onPress={onSubmit}
                 >
                   <Text style={styles.btnTitle}>Увійти</Text>
                 </TouchableOpacity>
